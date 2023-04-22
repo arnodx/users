@@ -5,6 +5,7 @@ jobs:
     name: 'Deploy'
     runs-on: ubuntu-latest
     env:
+      REPOSITRORY: ${{ secrets.REGION }}-docker.pkg.dev
       IMAGE_URL: ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.APP_NAME }}/${{ secrets.APP_NAME }}:latest
     permissions:
       contents: 'read'
@@ -30,7 +31,7 @@ jobs:
         run: |
           gcloud run deploy ${{ secrets.APP_NAME }} \
           --image $IMAGE_URL \
-          --region ${{ secrets.GCP_REGION}} \
+          --region ${{ secrets.REGION}} \
           --platform managed \
           --min-instances ${{ secrets.GCP_MIN_INSTANCES }} \
           --max-instances ${{ secrets.GCP_MAX_INSTANCES }} \
