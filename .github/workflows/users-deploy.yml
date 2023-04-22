@@ -1,0 +1,42 @@
+name: user
+on: push
+jobs:
+  deploy-prod:
+    name: 'Deploy'
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_URL: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.APP_NAME }}/${{ secrets.APP_NAME }}:latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+      - name: 'Auth'
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: 'Set up Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v0
+      - name: 'Docker auth configuration'
+        run: gcloud auth configure-docker
+      - name: 'Build image'
+        run: docker build --tag $IMAGE_URL .
+      - name: 'Docker push image'
+        run: |-
+          gcloud auth configure-docker $REPOSITRORY
+          docker push "$IMAGE_URL"
+      - name: 'Deploy Docker image'
+        run: |
+          gcloud run deploy ${{ secrets.APP_NAME }} \
+          --image $IMAGE_URL \
+          --region ${{ secrets.GCP_REGION}} \
+          --platform managed \
+          --min-instances ${{ secrets.GCP_MIN_INSTANCES }} \
+          --max-instances ${{ secrets.GCP_MAX_INSTANCES }} \
+          --concurrency ${{ secrets.GCP_CONCURRENCY }} \
+          --port 80 \
+          --cpu ${{ secrets.GCP_CPU }} \
+          --memory ${{ secrets.GCP_MEMORY }} \
+          --allow-unauthenticated \
+          --execution-environment=gen1
