@@ -1,7 +1,7 @@
 name: user
 on: push
 jobs:
-  deploy-prod:
+  deploy:
     name: 'Deploy'
     runs-on: ubuntu-latest
     env:
