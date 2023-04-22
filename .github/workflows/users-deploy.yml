@@ -5,7 +5,7 @@ jobs:
     name: 'Deploy'
     runs-on: ubuntu-latest
     env:
-      IMAGE_URL: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.APP_NAME }}/${{ secrets.APP_NAME }}:latest
+      IMAGE_URL: ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.APP_NAME }}/${{ secrets.APP_NAME }}:latest
     permissions:
       contents: 'read'
       id-token: 'write'
