@@ -1,1 +1,17 @@
-<p-button styleClass="p-button-text">test2</p-button>
+<div class="flex justify-content-center">
+  <p-button
+    icon="pi pi-arrow-left"
+    routerLink=".."
+    styleClass="p-button-text"
+  ></p-button>
+  <div class="user-container">
+    <app-avatar [height]="'150px'" [width]="'150px'" [url]="this.user.avatar"></app-avatar>
+    <div class="user-description">
+      <app-star [user]="this.user"></app-star>
+      <span>Imie i nazwisko: </span>
+      <span>{{ this.user.name}}</span>
+      <span>Email: </span>
+      <span>{{ this.user.email }}</span>
+    </div>
+  </div>
+</div>
