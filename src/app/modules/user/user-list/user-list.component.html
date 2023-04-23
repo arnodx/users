@@ -12,25 +12,28 @@
       >
         <ng-template pTemplate="caption">
           <div class="flex">
-            <button pButton label="Wyczyść" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clearSearch(dt)"></button>
+            <button (click)="clearSearch(dt)" class="p-button-outlined" icon="pi pi-filter-slash" label="Wyczyść"
+                    pButton></button>
             <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Wyszukaj użytkownika" />
+                <input (input)="dt.filterGlobal($any($event.target).value, 'contains')" pInputText placeholder="Wyszukaj użytkownika"
+                       type="text"/>
             </span>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th pResizableColumn  *ngFor="let col of columns" [pSortableColumn]="col.field" [pSortableColumnDisabled]="!col.sort">
+            <th *ngFor="let col of columns" [pSortableColumnDisabled]="!col.sort" [pSortableColumn]="col.field"
+                pResizableColumn>
               {{col.header}}
               <p-sortIcon *ngIf="col.sort" [field]="col.field"></p-sortIcon>
             </th>
           </tr>
         </ng-template>
-        <ng-template let-user let-userIndex="rowIndex" pTemplate="body" >
+        <ng-template let-user let-userIndex="rowIndex" pTemplate="body">
           <tr>
             <td>
-              <app-avatar [height]="'100px'" [width]="'100px'"  [url]="user.avatar"></app-avatar>
+              <app-avatar [height]="'100px'" [url]="user.avatar" [width]="'100px'"></app-avatar>
             </td>
             <td>
               <app-star [user]="user"></app-star>

@@ -21,7 +21,7 @@ export class UserResolver implements Resolve<User> {
     );
   }
 
-  private mapToUser(user: ApiResponse<User>) {
+  private mapToUser(user: ApiResponse<User>): User {
     return user.data;
   }
 }
