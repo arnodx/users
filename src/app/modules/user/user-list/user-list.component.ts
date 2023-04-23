@@ -21,10 +21,10 @@ export class UserListComponent {
 
   ngOnInit(): void {
     this.columns = [
-      {field: 'avatar', header: 'Avatar',sort: false},
-      {field: 'favorite', header: 'Ulubione',sort: false},
-      {field: 'name', header: 'Imie i Naazwisko',sort: true},
-      {field: 'action', header: 'Akcja',sort: false},
+      {field: 'avatar', header: 'Avatar', sort: false},
+      {field: 'favorite', header: 'Ulubione', sort: false},
+      {field: 'name', header: 'Imie i Naazwisko', sort: true},
+      {field: 'action', header: 'Akcja', sort: false},
     ];
     this.favoritesService.getUsersAndInitFavoriteUsersInLocalStorage().pipe(
       tap((user: ApiListResponse<User[]>) => {
@@ -34,15 +34,15 @@ export class UserListComponent {
     ).subscribe();
   }
 
-  private setDataSource(user: ApiListResponse<User[]>) {
+  clearSearch(table: Table): void {
+    table.clear();
+  }
+
+  private setDataSource(user: ApiListResponse<User[]>): void {
     this.dataSource = user.data;
   }
 
-  private setTotalRecords(user: ApiListResponse<User[]>) {
+  private setTotalRecords(user: ApiListResponse<User[]>): void {
     this.totalRecords = user.total;
-  }
-
-  clearSearch(table: Table):void {
-    table.clear();
   }
 }
