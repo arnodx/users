@@ -4,6 +4,7 @@ jobs:
   deploy:
     name: 'Deploy'
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     env:
       REPOSITRORY: ${{ secrets.REGION }}-docker.pkg.dev
       IMAGE_URL: ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.APP_NAME }}/${{ secrets.APP_NAME }}:latest

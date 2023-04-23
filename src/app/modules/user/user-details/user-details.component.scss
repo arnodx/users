@@ -1,0 +1,11 @@
+.user-container {
+  width: 70vw;
+  margin: 10vh 0;
+  display: flex;
+
+  .user-description {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 0 1rem;
+  }
+}
